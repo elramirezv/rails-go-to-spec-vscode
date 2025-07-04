@@ -25,6 +25,7 @@ function switchToSpecDir(file: string): string[] {
 	if (file.includes("/app/controllers/")) {
 		return [
 			file.replace("/app/controllers/", "/spec/requests/"),
+			file.replace("/app/controllers/", "/spec/requests/").replace('_controller', ''),
 			file.replace("/app/controllers/", "/spec/controllers/"),
 		];
 	} else if (file.includes("/app/app/")) {
@@ -38,6 +39,7 @@ function switchToSpecDir(file: string): string[] {
 	} else if (file.includes("/lib/")) {
 		return [
 			file.replace("/lib/", "/spec/lib/"),
+			file.replace("/lib/", "/spec/units/"),
 		];
 	} else {
 		return [];
@@ -54,9 +56,14 @@ function switchToCodeDir(file: string): string[] {
 			file.replace("/spec/", "/"),
 			file.replace("/spec/", "/app/"),
 		];
+	} else if (file.includes("/spec/units/")) {
+		return [
+			file.replace("/spec/units/", "/lib/"),
+		];
 	} else if (file.includes("/spec/requests/")) {
 		return [
 			file.replace("/spec/requests/", "/app/controllers/"),
+			file.replace("/spec/requests/", "/app/controllers/").replace('.rb', '_controller.rb'),
 		];
 	} else {
 		return [
